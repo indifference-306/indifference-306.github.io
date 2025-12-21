@@ -1,0 +1,258 @@
+/* 鸿蒙系统风格 — 深色模式（可放入 appearance.css） */
+:root {
+	--harmony-bg-1: #061226; /* 最深背景 */
+	--harmony-bg-2: #0b1a2b; /* 次深背景 / 卡片底 */
+	--harmony-bg-3: rgba(255,255,255,0.02); /* 轻微强调层 */
+	--harmony-surface: #0f2636; /* 表面色（卡片、侧栏） */
+	--harmony-glass: rgba(255,255,255,0.04);
+	--harmony-border: rgba(255,255,255,0.06);
+
+	--harmony-primary: #4FB3FF; /* 主强调色（蓝青） */
+	/*
+		类似 vuepress-theme-hope 的简化本地样式
+		- 暗/亮主题支持（通过 body.dataset.theme = 'dark'|'light' 切换）
+		- 提供 header, sidebar, main, card, button, code, tag, footer
+		- 可直接与本地 index.html 配合使用
+	*/
+}
+	:root{
+		--radius-sm:8px;
+		--radius-md:12px;
+		--glass-blur:8px;
+		--shadow-lg: 0 12px 30px rgba(2,6,23,0.6);
+		--mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+	}
+
+	/* 动画变量：时长与缓动曲线，便于统一调整 */
+	:root{
+		--dur-fast: 120ms;
+		--dur-mid: 220ms;
+		--dur-long: 360ms;
+		--ease-smooth: cubic-bezier(0.2, 0.9, 0.2, 1);
+		--ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	/* 亮色主题变量 */
+	body[data-theme="light"]{
+		--bg: #f6f8fb;
+		--surface: #ffffff;
+		--muted: #6b7280;
+		--text: #0f172a;
+		--primary: #2563eb;
+		--accent: #7c3aed;
+		--border: rgba(15,23,42,0.06);
+		--glass: rgba(255,255,255,0.6);
+	}
+
+	/* 暗色主题变量（默认）*/
+	body[data-theme="dark"], body{
+		--bg: linear-gradient(180deg,#061226,#0b1a2b);
+		--surface: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+		--muted: rgba(255,255,255,0.6);
+		--text: rgba(255,255,255,0.95);
+		--primary: #4fb3ff;
+		--accent: #9a7bff;
+		--border: rgba(255,255,255,0.06);
+		--glass: rgba(255,255,255,0.04);
+	}
+
+	/* 全局基础 */
+	*{box-sizing:border-box}
+	html,body{height:100%;margin:0;font-family:-apple-system,Segoe UI,Roboto,"Helvetica Neue","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+	html{scroll-behavior:smooth}
+	body{background:var(--bg);color:var(--text);transition:background var(--dur-long) var(--ease-soft), color var(--dur-mid) var(--ease-soft);padding:20px}
+
+	.app{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:260px 1fr;gap:24px}
+	@media (max-width:900px){.app{grid-template-columns:1fr}.sidebar{order:2}.main{order:1}}
+
+	/* Header */
+	.app-header{transition:transform var(--dur-mid) var(--ease-smooth), box-shadow var(--dur-mid) var(--ease-soft), background var(--dur-mid) var(--ease-soft)}
+	header.app-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:var(--radius-md);background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-lg)}
+	.logo{font-weight:700;font-size:1.1rem}
+	.nav{display:flex;gap:8px;align-items:center}
+	.nav a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;transition:color var(--dur-fast) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth)}
+	.nav a:hover{color:var(--text);background:rgba(0,0,0,0.04);transform:translateY(-1px)}
+
+	.header-actions{display:flex;gap:8px;align-items:center}
+	.icon-btn{background:transparent;border:1px solid var(--border);padding:8px;border-radius:10px;cursor:pointer;color:var(--muted);transition:transform var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth)}
+	.icon-btn:hover{color:var(--text);transform:translateY(-3px)}
+
+	/* Sidebar */
+	.sidebar{background:var(--surface);padding:16px;border-radius:var(--radius-md);border:1px solid var(--border);height:calc(100vh - 88px);overflow:auto}
+	.sidebar{transition:transform var(--dur-mid) var(--ease-soft), opacity var(--dur-mid) var(--ease-smooth)}
+	.sidebar h3{margin:0 0 8px 0}
+	.sidebar nav{display:flex;flex-direction:column;gap:6px}
+	.sidebar a{color:var(--muted);text-decoration:none;padding:8px;border-radius:8px}
+	.sidebar a.active{background:linear-gradient(90deg, rgba(79,179,255,0.08), rgba(154,123,255,0.06));color:var(--text);font-weight:600}
+
+	/* Main content */
+	.main{display:flex;flex-direction:column;gap:18px}
+	.hero{background:var(--surface);padding:20px;border-radius:var(--radius-md);border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;transition:box-shadow var(--dur-mid) var(--ease-soft), transform var(--dur-mid) var(--ease-smooth)}
+	.hero h1{margin:0;font-size:1.6rem}
+	.search-row{display:flex;gap:8px;align-items:center}
+
+	.post-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+	.card{background:var(--surface);padding:16px;border-radius:var(--radius-md);border:1px solid var(--border);box-shadow:0 6px 18px rgba(2,6,23,0.28);transition:transform var(--dur-mid) var(--ease-smooth), box-shadow var(--dur-mid) var(--ease-soft), background var(--dur-mid) var(--ease-soft);will-change:transform}
+	.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.36)}
+	.post-title{margin:0 0 6px 0;font-size:1.05rem}
+	.post-meta{color:var(--muted);font-size:0.9rem}
+
+	.btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:none;background:linear-gradient(180deg,var(--primary),color-mix(in srgb, var(--primary) 70%, black 10%));color:#fff;cursor:pointer;font-weight:600;transition:transform var(--dur-fast) var(--ease-smooth), box-shadow var(--dur-mid) var(--ease-soft), opacity var(--dur-fast) var(--ease-smooth);will-change:transform,opacity}
+	.btn:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(2,110,220,0.18)}
+	.btn.ghost{background:transparent;border:1px solid var(--border);color:var(--text);transition:background var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth)}
+
+	/* 代码高亮和块 */
+	pre,code{background:var(--surface);color:var(--text);padding:10px;border-radius:8px;border:1px solid var(--border);font-family:var(--mono);overflow:auto}
+
+	/* 对经常变动的元素提示浏览器进行优化 */
+	.copy-btn, .page-btn, #back-to-top, .nav a { will-change: transform, opacity }
+
+	/* tag/badge */
+	.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 70%, black 10%));color:#001224;font-weight:700}
+
+	/* footer */
+	footer.site-footer{padding:14px;text-align:center;color:var(--muted);font-size:0.95rem}
+
+	/* scroll bar */
+	::-webkit-scrollbar{width:10px;height:10px}
+	::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(0,0,0,0.12),rgba(0,0,0,0.06));border-radius:8px}
+
+	/* utility */
+	.glass{background:linear-gradient(180deg,var(--glass),transparent);border-radius:var(--radius-md);padding:12px;border:1px solid var(--border)}
+
+	/* small helpers */
+	.muted{color:var(--muted)}
+
+	/* 浅色主题微调 */
+	body[data-theme="light"] .card, body[data-theme="light"] .sidebar, body[data-theme="light"] header.app-header{box-shadow:0 6px 18px rgba(15,23,42,0.04)}
+
+	/* Accessibility focus */
+	:focus{outline:2px solid color-mix(in srgb, var(--primary) 40%, white 60%);outline-offset:2px}
+
+	/* Table of Contents (TOC) */
+	.toc{position:sticky;top:20px;background:var(--surface);padding:10px;border-radius:10px;border:1px solid var(--border);max-height:60vh;overflow:auto}
+	.toc h4{margin:0 0 8px 0;font-size:0.95rem}
+	.toc a{display:block;color:var(--muted);text-decoration:none;padding:6px;border-radius:6px;transition:background .12s ease,color .12s ease}
+	.toc a:hover{background:rgba(0,0,0,0.03);color:var(--text)}
+	.toc a.active{background:linear-gradient(90deg, rgba(79,179,255,0.08), rgba(154,123,255,0.06));color:var(--text);font-weight:600}
+	.toc a.lvl-2{padding-left:10px;font-size:0.93rem}
+	.toc a.lvl-3{padding-left:18px;font-size:0.88rem;color:var(--muted)}
+
+	/* Pagination */
+	.pagination{display:flex;gap:8px;align-items:center;justify-content:center;padding:12px}
+	.pagination .page-btn{padding:8px 12px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:transform var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth)}
+	.pagination .page-btn:hover{transform:translateY(-2px);color:var(--text)}
+	.pagination .page-btn.active{background:linear-gradient(180deg,var(--primary),color-mix(in srgb,var(--primary) 70%, black 10%));color:#fff;border-color:transparent}
+	.pagination .page-btn:disabled{opacity:.45;cursor:not-allowed}
+
+	/* Code copy button */
+	.code-wrap{position:relative}
+	.copy-btn{position:absolute;right:8px;top:8px;padding:6px 8px;border-radius:6px;border:1px solid transparent;background:rgba(0,0,0,0.06);color:var(--muted);cursor:pointer;font-size:0.82rem;transition:transform var(--dur-fast) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth)}
+	.copy-btn:hover{background:var(--primary);color:#fff;border-color:color-mix(in srgb,var(--primary) 60%, black 20%);transform:translateY(-3px)}
+	.copy-btn.success{background:linear-gradient(180deg,var(--primary),color-mix(in srgb,var(--primary) 60%, black 20%));color:#fff;transform:scale(1.04)}
+
+	/* Back to top */
+	#back-to-top{position:fixed;right:18px;bottom:18px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:999px;border:1px solid transparent;background:linear-gradient(180deg,var(--primary),color-mix(in srgb,var(--primary) 70%, black 10%));cursor:pointer;box-shadow:0 10px 26px rgba(2,6,23,0.36);color:#fff;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity var(--dur-mid) var(--ease-soft), transform var(--dur-mid) var(--ease-smooth), box-shadow var(--dur-mid) var(--ease-soft}
+	#back-to-top.show{opacity:1;visibility:visible;transform:translateY(0);box-shadow:0 18px 40px rgba(2,6,23,0.36)}
+
+	@media (max-width:900px){
+		.sidebar{display:none;opacity:0;transform:translateX(-8px)}
+		.sidebar.open{display:block;position:fixed;left:12px;top:80px;bottom:12px;z-index:60;width:260px;opacity:1;transform:translateX(0)}
+		.app{grid-template-columns:1fr}
+	}
+
+	/* 如果用户偏好减少动画，关闭过渡 */
+	@media (prefers-reduced-motion: reduce){
+		:root{ --dur-fast: 1ms; --dur-mid: 1ms; --dur-long: 1ms }
+		*{transition:none !important;animation:none !important}
+	}
+
+
+.input:focus {
+	border-color: var(--harmony-primary);
+	box-shadow: 0 6px 18px rgba(46,168,255,0.08);
+	-webkit-backdrop-filter: blur(var(--glass-blur));
+	backdrop-filter: blur(var(--glass-blur));
+	will-change: backdrop-filter;
+}
+
+/* 列表 / 文章摘要 */
+.post-list { display:grid; gap:14px; }
+.post-item { padding:14px; border-radius:12px; background: linear-gradient(180deg, var(--harmony-bg-3), transparent); border:1px solid var(--harmony-border); }
+.post-title { color: var(--harmony-text-1); font-size:1.15rem; margin-bottom:6px; }
+.post-meta { color: var(--harmony-text-3); font-size:0.9rem; }
+
+/* 代码块 */
+pre, code {
+	background: rgba(255,255,255,0.02);
+	color: #CFEFFF;
+	border-radius: 8px;
+	padding: 8px;
+	font-family: var(--mono);
+	font-size: 0.92rem;
+	overflow:auto;
+	border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* 引用 / 强调卡片（玻璃效果） */
+.glass {
+	background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+	border: 1px solid rgba(255,255,255,0.04);
+	-webkit-backdrop-filter: blur(var(--glass-blur));
+	backdrop-filter: blur(var(--glass-blur));
+	will-change: backdrop-filter;
+	border-radius: var(--radius-md);
+	padding:12px;
+}
+
+/* 小角标 / 标签 */
+.tag {
+	display:inline-block;
+	padding:6px 10px;
+	border-radius:999px;
+	font-size:0.85rem;
+	color: #001224;
+	background: linear-gradient(180deg, var(--harmony-accent), rgba(154,123,255,0.86));
+}
+
+/* 状态色 */
+.status-success { color: var(--harmony-success); }
+.status-warn { color: var(--harmony-warning); }
+.status-error { color: var(--harmony-error); }
+
+/* 滚动条（Windows 上） */
+::-webkit-scrollbar { height:10px; width:10px; }
+::-webkit-scrollbar-thumb {
+	background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+	border-radius: 8px;
+	border: 2px solid transparent;
+	background-clip: padding-box;
+}
+
+/* 小屏与响应 */
+@media (max-width:720px) {
+	.container { padding:16px; margin:12px; }
+	header.app-header { flex-direction:column; align-items:flex-start; gap:8px; }
+}
+
+/* 可选：暗色模式的反差增强（可在需要时启用） */
+.contrast-boost {
+	filter: contrast(1.05) saturate(1.05);
+}
+
+/* 使用示例（HTML 结构参考）
+<header class="app-header">
+	<div class="logo">我的博客</div>
+	<nav class="nav"><a href="#">首页</a><a href="#">文章</a></nav>
+</header>
+<section class="container">
+	<div class="post-list">
+		<article class="post-item card">
+			<h2 class="post-title">示例文章</h2>
+			<div class="post-meta">2025-12-21 · 阅读 120</div>
+			<p>这是文章摘要……</p>
+			<button class="btn">阅读更多</button>
+		</article>
+	</div>
+</section>
+*/

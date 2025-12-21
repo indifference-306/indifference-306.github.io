@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>文章列表 · 我的博客</title>
+  <link rel="stylesheet" href="appearance.css">
+</head>
+<body data-theme="dark">
+  <header class="app-header">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="logo">我的博客</div>
+      <nav class="nav">
+        <a href="index.html">首页</a>
+        <a class="active" href="posts.html">文章</a>
+        <a href="editor.html">写文章</a>
+      </nav>
+    </div>
+    <div class="header-actions">
+      <button id="theme-toggle" class="icon-btn">切换主题</button>
+      <button id="mobile-menu" class="icon-btn">菜单</button>
+    </div>
+  </header>
+
+  <main class="app">
+    <aside class="sidebar">
+      <h3>目录</h3>
+      <div class="toc">
+        <h4>最近文章</h4>
+        <nav>
+          <a href="posts/post-1.html">构建本地主题</a>
+          <a href="posts/post-2.html">暗/亮主题切换</a>
+          <a href="posts/post-3.html">组件与布局</a>
+        </nav>
+      </div>
+    </aside>
+
+    <section class="main">
+      <section class="hero">
+        <div>
+          <h1>所有文章</h1>
+          <div class="muted">在此管理与浏览本地文章</div>
+        </div>
+        <div></div>
+      </section>
+
+      <section class="post-list">
+        <article class="card">
+          <h2 class="post-title"><a href="posts/post-1.html">示例：构建本地主题</a></h2>
+          <div class="post-meta">2025-12-21 · 阅读 120 · <span class="tag">演示</span></div>
+          <p>示例文章说明如何基于 CSS 变量与布局构建本地主题。</p>
+        </article>
+
+        <article class="card">
+          <h2 class="post-title"><a href="posts/post-2.html">示例：暗/亮主题切换</a></h2>
+          <div class="post-meta">2025-12-20 · 阅读 80 · <span class="tag">主题</span></div>
+          <p>演示暗/亮主题的切换与持久化。</p>
+        </article>
+
+        <article class="card">
+          <h2 class="post-title"><a href="posts/post-3.html">示例：组件与布局</a></h2>
+          <div class="post-meta">2025-12-18 · 阅读 45 · <span class="tag">布局</span></div>
+          <p>介绍常用组件与响应式布局的实现。</p>
+        </article>
+      </section>
+
+      <footer class="site-footer">© 2025 我的博客</footer>
+    </section>
+  </main>
+
+  <script>
+    // 复用简单主题切换逻辑
+    (function(){
+      const body = document.body;
+      const key = 'site-theme';
+      const btn = document.getElementById('theme-toggle');
+      const stored = localStorage.getItem(key);
+      if(stored) body.dataset.theme = stored;
+      else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) body.dataset.theme='light';
+      else body.dataset.theme='dark';
+      btn.addEventListener('click', ()=>{ const next = body.dataset.theme === 'dark' ? 'light' : 'dark'; body.dataset.theme = next; localStorage.setItem(key, next); });
+      const mobileMenu = document.getElementById('mobile-menu'); mobileMenu.addEventListener('click', ()=>{ document.querySelector('.sidebar').classList.toggle('open'); });
+    })();
+  </script>
+</body>
+</html>

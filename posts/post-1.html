@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>构建本地主题 · 我的博客</title>
+  <link rel="stylesheet" href="../appearance.css">
+</head>
+<body data-theme="dark">
+  <header class="app-header">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="logo">我的博客</div>
+      <nav class="nav">
+        <a href="../index.html">首页</a>
+        <a href="../posts.html">文章</a>
+        <a href="../editor.html">写文章</a>
+      </nav>
+    </div>
+    <div class="header-actions">
+      <button id="theme-toggle" class="icon-btn">切换主题</button>
+      <button id="mobile-menu" class="icon-btn">菜单</button>
+    </div>
+  </header>
+
+  <main class="app">
+    <aside class="sidebar">
+      <h3>目录</h3>
+      <div class="toc"><nav>
+        <a href="#intro">简介</a>
+        <a href="#vars">风格变量</a>
+        <a href="#usage">使用方法</a>
+      </nav></div>
+    </aside>
+
+    <section class="main">
+      <article class="card">
+        <h1 id="intro">构建本地主题</h1>
+        <div class="post-meta">2025-12-21 · 作者：你</div>
+        <p>这是一个示例文章，用来展示如何用本地 CSS 写主题。</p>
+        <h2 id="vars">风格变量</h2>
+        <p>主题通过 CSS 变量控制配色与阴影等。</p>
+        <pre class="code-wrap"><code>:root { --primary: #4fb3ff; }</code></pre>
+        <h2 id="usage">使用方法</h2>
+        <p>将 `appearance.css` 放到站点根目录并在页面中引入。</p>
+      </article>
+
+      <footer class="site-footer">© 2025 我的博客</footer>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const body = document.body;
+      const key = 'site-theme';
+      const btn = document.getElementById('theme-toggle');
+      const stored = localStorage.getItem(key);
+      if(stored) body.dataset.theme = stored;
+      else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) body.dataset.theme='light';
+      else body.dataset.theme='dark';
+      btn.addEventListener('click', ()=>{ const next = body.dataset.theme === 'dark' ? 'light' : 'dark'; body.dataset.theme = next; localStorage.setItem(key, next); });
+      document.getElementById('mobile-menu').addEventListener('click', ()=>document.querySelector('.sidebar').classList.toggle('open'));
+    })();
+  </script>
+</body>
+</html>
